@@ -22,7 +22,10 @@ it.each(['/', '/xe-website/'])(
         join(directory, 'dist', 'robots.txt'),
         `Sitemap: ${publicUrl}sitemap-index.xml\n`,
       );
-      writeFileSync(join(directory, 'dist', 'rss.xml'), '<rss version="2.0"/>\n');
+      writeFileSync(
+        join(directory, 'dist', 'rss.xml'),
+        '<rss version="2.0"/>\n',
+      );
       writeFileSync(join(directory, 'dist', 'media', 'slides.pdf'), 'fixture');
       writeFileSync(join(directory, 'dist', 'media', 'preview.png'), 'fixture');
       writeFileSync(
