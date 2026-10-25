@@ -41,7 +41,7 @@
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.11",
+    "@astrojs/check": "^0.9.12",
     "@astrojs/markdown-remark": "^7.3.4",
     "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.64.1",
