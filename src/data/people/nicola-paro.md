@@ -8,4 +8,5 @@ links:
     url: https://www.linkedin.com/in/nicolaparo/
 published: true
 sourceUrl: https://www.xedotnet.org/soci/
+profileUrl: https://www.linkedin.com/in/nicolaparo/
 ---
