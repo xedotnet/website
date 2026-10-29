@@ -13,6 +13,7 @@ import { initials } from '../../../lib/text';
 import { isCurrentMember } from '../../../lib/people';
 import { loadPeopleContext } from '../../../lib/people-content';
 import { eventMaterials } from '../../../lib/webmcp';
+import { eventSocialCard, socialCardAlt, socialCardPath } from '../../../lib/social-card';
 
 type Props =
   | { kind: 'year'; year: number; events: EventEntry[] }
@@ -66,6 +67,8 @@ function eventPageUrl(event: EventEntry): string {
 
 const [site] = await getCollection('site'),
  currentRegistrationState = event ? registrationState(event) : undefined,
+ eventCard = event ? eventSocialCard(event) : undefined,
+ eventCardPath = event && eventCard ? socialCardPath(eventSlug(event), eventCard) : undefined,
  eventBreadcrumbItems = (year: number) => [
   { name: 'Home', url: new URL(withBase('/'), Astro.site).href },
   { name: 'Eventi', url: new URL(withBase('/eventi/'), Astro.site).href },
@@ -79,7 +82,7 @@ const [site] = await getCollection('site'),
    endDate: event.data.endDate?.toISOString(),
    eventAttendanceMode: event.data.venue?.online ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode',
    eventStatus: eventStructuredStatus(event),
-   image: new URL(withBase(event.data.image ?? '/images/social-card.png'), Astro.site).href,
+   image: new URL(withBase(event.data.image ?? eventCardPath!), Astro.site).href,
    location: event.data.venue ? { '@type': event.data.venue.online ? 'VirtualLocation' : 'Place', name: event.data.venue.name, url: event.data.venue.url } : undefined,
    name: event.data.title,
    organizer: { '@type': 'Organization', name: site.data.name, url: new URL(withBase('/'), Astro.site).href },
@@ -117,7 +120,7 @@ const [site] = await getCollection('site'),
     <section class="section shell"><ol class="event-list">{props.events.map((item) => <li><EventCard event={item} /></li>)}</ol></section>
   </BaseLayout>
 ) : event && Content ? (
-  <BaseLayout title={event.data.title} description={event.data.description} image={event.data.image} type="article" structuredData={eventStructuredData}>
+  <BaseLayout title={event.data.title} description={event.data.description} image={eventCardPath} imageAlt={eventCard && socialCardAlt(eventCard)} imageWidth={1200} imageHeight={630} type="article" structuredData={eventStructuredData}>
     {webMcpEventDetails && <WebMcpEventDetails slug={eventSlug(event)} />}
     <header class="page-hero">
       <div class="shell">

@@ -58,6 +58,36 @@ function inspectUrl(value, file, attribute) {
 const htmlFiles = globSync('dist/**/*.html');
 for (const file of htmlFiles) {
   const $ = cheerio.load(readFileSync(file, 'utf8'));
+  const ogImage = $('meta[property="og:image"]').attr('content'),
+    twitterImage = $('meta[name="twitter:image"]').attr('content');
+  if (!ogImage && $('meta[http-equiv="refresh"]').length > 0) {
+    // Redirect pages delegate their preview metadata to the destination.
+  } else if (!ogImage || !ogImage.startsWith(`${site}${base}`)) {
+    errors.push(`${file}: missing or invalid absolute og:image`);
+  } else {
+    inspectUrl(ogImage, file, 'og:image');
+    if (twitterImage !== ogImage) {
+      errors.push(`${file}: Twitter and Open Graph images differ`);
+    }
+    const imagePath = outputPath(new URL(ogImage).pathname);
+    if (
+      existsSync(imagePath) &&
+      new URL(ogImage).pathname.includes('/social/')
+    ) {
+      const png = readFileSync(imagePath);
+      if (
+        png.length < 24 ||
+        png.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a' ||
+        png.readUInt32BE(16) !== 1200 ||
+        png.readUInt32BE(20) !== 630
+      ) {
+        errors.push(`${file}: sharing image is not a 1200x630 PNG`);
+      }
+      if (!$('meta[property="og:image:alt"]').attr('content')) {
+        errors.push(`${file}: missing sharing image alternative text`);
+      }
+    }
+  }
   $('[href], [src], [poster]').each((_index, element) => {
     for (const attribute of ['href', 'src', 'poster']) {
       inspectUrl($(element).attr(attribute), file, attribute);
