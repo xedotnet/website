@@ -215,3 +215,9 @@ Before opening a pull request, run at least `npm test`, `npm run build`, and `np
 - [ ] Generated or bulk content diffs have been reviewed; unexpected changes are explained.
 - [ ] Commit messages follow Conventional Commits.
 - [ ] `npm test`, `npm run build`, and `npm run check:build` pass locally; Playwright passes for browser-visible changes.
+
+### Sharing cards
+
+The build generates a default sharing image and a separate image for each published event from `src/lib/social-card.ts`. Edit that template to adjust the artwork; it uses the XE logo and the locally installed Manrope font. The image URLs include a hash of the template, assets, and card content so changes get fresh URLs.
+
+Run `npm run build` and `npm run check:build` to validate the images and metadata. Inspect the generated PNG files under `dist/social/` at full size and as center crops. After deployment, share the homepage and an event in Slack to check the actual preview; Slack controls its layout and may cache previous previews.
