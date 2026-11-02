@@ -4,7 +4,7 @@
 
 XeDotNet is an Italian-language community website built as a static Astro 7 site. It uses strict TypeScript, Astro content collections, Zod schemas, Markdown and JSON content, Vitest unit tests, and Playwright browser and accessibility tests. GitHub Actions builds and deploys the generated `dist/` directory to GitHub Pages.
 
-This is a single-package npm repository. Use Node.js 24 or newer and npm; do not introduce another package manager or lockfile.
+This is a single-package npm repository. Use Node.js 26 or newer and npm; do not introduce another package manager or lockfile.
 
 ## Repository map
 

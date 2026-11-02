@@ -35,7 +35,7 @@ Verificare che una PR minor o patch riceva l’approvazione del code owner, atte
 
 ## Development setup
 
-The project is a single-package npm repository. It runs on Node.js 24 or newer and uses the npm lockfile — please do not introduce another package manager or lockfile.
+The project is a single-package npm repository. It runs on Node.js 26 or newer and uses the npm lockfile — please do not introduce another package manager or lockfile.
 
 ```sh
 npm ci          # install the locked dependency tree
