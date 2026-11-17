@@ -33,7 +33,7 @@
     "eval:webmcp:docker:config": "docker compose -f docs/webmcp/compose.ollama.yml config --quiet"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/sitemap": "^3.7.5",
     "@fontsource/atkinson-hyperlegible-next": "^5.3.0",
     "@fontsource/barlow-condensed": "^5.3.0",
     "@fontsource/manrope": "^5.3.0",
